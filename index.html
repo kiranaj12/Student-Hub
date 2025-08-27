@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Hub - Student Management System</title>
+    <title>Student Hub - Complete Management System</title>
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="#" id="manifestLink">
@@ -14,26 +14,24 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Student Hub">
     
-    <!-- App Icons (SVG-based) -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNGY0NmU1O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzdjM2FlZDtzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSI4IiBmaWxsPSJ1cmwoI2dyYWQpIi8+PGNpcmNsZSBjeD0iMzIiIGN5PSIyNCIgcj0iOCIgZmlsbD0id2hpdGUiLz48cmVjdCB4PSIxNiIgeT0iMzYiIHdpZHRoPSIzMiIgaGVpZ2h0PSI0IiByeD0iMiIgZmlsbD0id2hpdGUiLz48cmVjdCB4PSIyMCIgeT0iNDQiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyIiByeD0iMSIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuOCIvPjwvc3ZnPg==">
+    <!-- App Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNGY0NmU1O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzdjM2FlZDtzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSI4IiBmaWxsPSJ1cmwoI2dyYWQpIi8+PGNpcmNsZSBjeD0iMzIiIGN5PSIyNCIgcj0iOCIgZmlsbD0id2hpdGUiLz48cmVjdCB4PSIxNiIgeT0iMzYiIHdpZHRoPSIzMiIgaGVpZ2h0PSI0IiByeD0iMiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- PWA Manifest and Service Worker Setup -->
+    <!-- PWA Setup -->
     <script>
-        // Create PWA Manifest
         const manifestData = {
-            "name": "Student Hub - Student Management System",
+            "name": "Student Hub - Complete Management System",
             "short_name": "Student Hub",
-            "description": "Complete student management system with AI analytics",
+            "description": "Complete diploma student management system",
             "start_url": "./",
             "display": "standalone",
             "background_color": "#4f46e5",
             "theme_color": "#4f46e5",
-            "orientation": "portrait-primary",
             "icons": [
                 {
                     "src": "data:image/svg+xml;base64," + btoa(`
@@ -47,86 +45,34 @@
                             <rect width="192" height="192" rx="24" fill="url(#grad1)"/>
                             <circle cx="96" cy="72" r="24" fill="white"/>
                             <rect x="48" y="108" width="96" height="12" rx="6" fill="white"/>
-                            <rect x="60" y="132" width="72" height="6" rx="3" fill="white" opacity="0.8"/>
                         </svg>
                     `),
                     "sizes": "192x192",
-                    "type": "image/svg+xml",
-                    "purpose": "maskable any"
-                },
-                {
-                    "src": "data:image/svg+xml;base64," + btoa(`
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <defs>
-                                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <rect width="512" height="512" rx="64" fill="url(#grad2)"/>
-                            <circle cx="256" cy="200" r="40" fill="white"/>
-                            <rect x="176" y="280" width="160" height="20" rx="10" fill="white"/>
-                        </svg>
-                    `),
-                    "sizes": "512x512",
-                    "type": "image/svg+xml",
-                    "purpose": "maskable any"
+                    "type": "image/svg+xml"
                 }
             ]
         };
 
-        // Service Worker Code
         const serviceWorkerCode = `
-            const CACHE_NAME = 'student-hub-v1';
-            const urlsToCache = [
-                './',
-                'https://cdn.tailwindcss.com',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-                'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap',
-                'https://cdn.jsdelivr.net/npm/chart.js'
-            ];
-
-            self.addEventListener('install', function(event) {
-                event.waitUntil(
-                    caches.open(CACHE_NAME)
-                        .then(function(cache) {
-                            return cache.addAll(urlsToCache);
-                        })
-                );
+            const CACHE_NAME = 'student-hub-v2';
+            const urlsToCache = ['./', 'https://cdn.tailwindcss.com', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'];
+            
+            self.addEventListener('install', event => {
+                event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
             });
-
-            self.addEventListener('fetch', function(event) {
-                event.respondWith(
-                    caches.match(event.request)
-                        .then(function(response) {
-                            if (response) {
-                                return response;
-                            }
-                            return fetch(event.request);
-                        })
-                );
+            
+            self.addEventListener('fetch', event => {
+                event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)));
             });
         `;
 
-        // Initialize PWA
         function initializePWA() {
             const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
-            const manifestURL = URL.createObjectURL(manifestBlob);
-            document.getElementById('manifestLink').href = manifestURL;
+            document.getElementById('manifestLink').href = URL.createObjectURL(manifestBlob);
 
             if ('serviceWorker' in navigator) {
                 const swBlob = new Blob([serviceWorkerCode], {type: 'application/javascript'});
-                const swURL = URL.createObjectURL(swBlob);
-                
-                window.addEventListener('load', function() {
-                    navigator.serviceWorker.register(swURL)
-                        .then(function(registration) {
-                            console.log('PWA: ServiceWorker registered');
-                        })
-                        .catch(function(err) {
-                            console.log('PWA: ServiceWorker registration failed');
-                        });
-                });
+                navigator.serviceWorker.register(URL.createObjectURL(swBlob));
             }
         }
 
@@ -149,78 +95,125 @@
             transition: all 0.3s ease;
         }
         
-        .btn-modern:hover { transform: translateY(-2px); }
+        .btn-modern:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        
+        .btn-success { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); }
+        .btn-warning { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); }
+        .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); }
+        .btn-info { background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); }
         
         .input-modern {
             border: 2px solid #e2e8f0; border-radius: 12px;
-            padding: 12px 16px; transition: all 0.3s ease;
+            padding: 12px 16px; transition: all 0.3s ease; width: 100%;
         }
         
         .input-modern:focus {
-            border-color: #667eea; outline: none;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #4f46e5; outline: none;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
         
-        .auth-container {
-            min-height: 100vh; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            display: flex; align-items: center; justify-content: center; padding: 20px;
+        .card-modern {
+            background: white; border-radius: 16px; padding: 24px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease; margin-bottom: 20px;
         }
         
-        .auth-card {
-            background: white; border-radius: 24px; padding: 40px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-            width: 100%; max-width: 450px;
+        .card-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        
+        .sidebar {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            width: 280px; height: 100vh; position: fixed; left: 0; top: 0;
+            transform: translateX(-100%); transition: transform 0.3s ease; z-index: 1000;
         }
         
-        .install-prompt {
-            position: fixed; bottom: 20px; left: 20px; right: 20px;
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            color: white; padding: 16px; border-radius: 12px;
-            display: none; z-index: 1001;
+        .sidebar.active { transform: translateX(0); }
+        
+        .sidebar-item {
+            display: flex; align-items: center; padding: 15px 20px;
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            transition: all 0.3s ease; border-left: 4px solid transparent;
         }
         
-        .install-prompt.show { display: block; animation: slideUp 0.3s ease; }
-        
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .sidebar-item:hover, .sidebar-item.active {
+            background: rgba(255,255,255,0.1); color: white; border-left-color: #4f46e5;
         }
+        
+        .sidebar-item i { margin-right: 12px; width: 20px; }
+        
+        .main-content { margin-left: 0; padding: 20px; transition: margin-left 0.3s ease; }
+        .main-content.sidebar-open { margin-left: 280px; }
         
         .notification {
-            position: fixed; top: 20px; right: 20px; z-index: 1000;
-            display: none; border-radius: 12px; padding: 16px 24px;
-            color: white; font-weight: 600;
+            position: fixed; top: 20px; right: 20px; z-index: 2000;
+            padding: 16px 24px; border-radius: 12px; color: white;
+            font-weight: 600; display: none; animation: slideIn 0.3s ease;
         }
         
-        .notification.success { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .notification.error { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .notification.success { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); }
+        .notification.error { background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); }
+        
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); display: none; justify-content: center;
+            align-items: center; z-index: 2000;
+        }
+        
+        .modal-content {
+            background: white; border-radius: 20px; padding: 30px;
+            max-width: 90%; max-height: 90%; overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        
+        .table-modern {
+            width: 100%; border-collapse: collapse; background: white;
+            border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .table-modern th {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white; padding: 15px; text-align: left; font-weight: 600;
+        }
+        
+        .table-modern td { padding: 15px; border-bottom: 1px solid #e5e7eb; }
+        .table-modern tr:hover { background: #f9fafb; }
+        
+        .badge {
+            display: inline-block; padding: 4px 12px; border-radius: 20px;
+            font-size: 12px; font-weight: 600; text-transform: uppercase;
+        }
+        
+        .badge-success { background: #10b981; color: white; }
+        .badge-warning { background: #f59e0b; color: white; }
+        .badge-danger { background: #ef4444; color: white; }
+        .badge-info { background: #3b82f6; color: white; }
+        
+        .progress-bar {
+            height: 8px; background: #e5e7eb; border-radius: 4px;
+            overflow: hidden; margin-top: 8px;
+        }
+        
+        .progress-fill {
+            height: 100%; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            transition: width 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
         
         @media (max-width: 768px) {
-            .auth-card { padding: 24px; margin: 20px; }
-            .install-prompt { left: 10px; right: 10px; bottom: 10px; }
+            .sidebar { width: 100%; }
+            .main-content.sidebar-open { margin-left: 0; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .modal-content { margin: 20px; padding: 20px; }
         }
     </style>
 </head>
 
 <body class="bg-gray-50">
-    <!-- PWA Install Prompt -->
-    <div id="installPrompt" class="install-prompt">
-        <div class="flex items-center justify-between">
-            <div class="flex-1">
-                <h4 class="font-semibold mb-1">📱 Install Student Hub</h4>
-                <p class="text-sm opacity-90">Add to your home screen for quick access!</p>
-            </div>
-            <div class="flex space-x-2 ml-4">
-                <button onclick="installApp()" class="bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold text-sm">
-                    Install
-                </button>
-                <button onclick="dismissInstallPrompt()" class="text-white opacity-75 hover:opacity-100">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Notifications -->
     <div id="successNotification" class="notification success">
         <i class="fas fa-check-circle mr-2"></i>
@@ -232,106 +225,1565 @@
     </div>
 
     <!-- Authentication Screen -->
-    <div id="authScreen" class="auth-container">
-        <div class="auth-card">
+    <div id="authScreen" class="min-h-screen gradient-bg flex items-center justify-center p-5">
+        <div class="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl">
+            <!-- Login Form -->
             <div id="loginForm">
                 <div class="text-center mb-8">
-                    <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-graduation-cap text-3xl text-white"></i>
                     </div>
                     <h1 class="text-3xl font-bold text-gray-800 mb-2">Student Hub</h1>
-                    <p class="text-gray-600">Student Management System</p>
+                    <p class="text-gray-600">Diploma Management System</p>
                 </div>
                 
                 <form onsubmit="handleLogin(event)">
                     <div class="mb-6">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Username or Email</label>
-                        <input type="text" id="loginUsername" required class="input-modern w-full" placeholder="Enter username or email">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Username/Email</label>
+                        <input type="text" id="loginUsername" required class="input-modern" placeholder="Enter username or email">
                     </div>
                     
                     <div class="mb-6">
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-                        <input type="password" id="loginPassword" required class="input-modern w-full" placeholder="Enter password">
+                        <input type="password" id="loginPassword" required class="input-modern" placeholder="Enter password">
                     </div>
                     
                     <button type="submit" class="btn-modern w-full mb-4">
-                        <i class="fas fa-sign-in-alt mr-2"></i>
-                        Sign In
+                        <i class="fas fa-sign-in-alt mr-2"></i>Sign In
                     </button>
                 </form>
                 
-                <!-- Demo Info -->
-                <div class="mt-6 p-4 bg-blue-50 rounded-lg">
-                    <h4 class="font-semibold text-blue-800 mb-2">📱 Mobile App Demo:</h4>
-                    <div class="text-sm text-blue-700 space-y-1">
-                        <div><strong>Student:</strong> student / student123</div>
-                        <div><strong>Teacher:</strong> teacher / teacher123</div>
-                        <div><strong>Admin:</strong> admin / admin123</div>
-                    </div>
+                <div class="text-center">
+                    <button type="button" onclick="showRegister()" class="text-blue-600 font-semibold hover:underline">
+                        Create New Account
+                    </button>
                 </div>
                 
-                <div class="mt-4 p-4 bg-green-50 rounded-lg">
-                    <h4 class="font-semibold text-green-800 mb-2">📱 Install as Mobile App:</h4>
-                    <p class="text-sm text-green-700">This app can be installed on your phone! Look for "Add to Home Screen" in your browser menu.</p>
+                <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                    <h4 class="font-semibold text-blue-800 mb-2">🎓 Demo Accounts:</h4>
+                    <div class="text-sm text-blue-700 space-y-1">
+                        <div><strong>Student:</strong> student@demo.com / student123</div>
+                        <div><strong>Teacher:</strong> teacher@demo.com / teacher123</div>
+                        <div><strong>Admin:</strong> admin@demo.com / admin123</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="registerForm" style="display: none;">
+                <div class="text-center mb-6">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Create Account</h1>
+                    <p class="text-gray-600">Join Student Hub</p>
+                </div>
+                
+                <form onsubmit="handleRegister(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                        <input type="text" id="regName" required class="input-modern" placeholder="Enter full name">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                        <input type="email" id="regEmail" required class="input-modern" placeholder="Enter email">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Role</label>
+                        <select id="regRole" required class="input-modern" onchange="toggleCourseField()">
+                            <option value="">Select Role</option>
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="admin">Administrator</option>
+                        </select>
+                    </div>
+                    
+                    <div id="courseField" class="mb-4" style="display: none;">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Diploma Course</label>
+                        <select id="regCourse" class="input-modern">
+                            <option value="">Select Course</option>
+                            <option value="computer-engineering">Computer Engineering</option>
+                            <option value="mechanical-engineering">Mechanical Engineering</option>
+                            <option value="electrical-engineering">Electrical Engineering</option>
+                            <option value="civil-engineering">Civil Engineering</option>
+                            <option value="electronics-telecom">Electronics & Telecommunication</option>
+                            <option value="automobile-engineering">Automobile Engineering</option>
+                            <option value="information-technology">Information Technology</option>
+                            <option value="chemical-engineering">Chemical Engineering</option>
+                            <option value="textile-technology">Textile Technology</option>
+                            <option value="architecture">Architecture</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                        <input type="password" id="regPassword" required class="input-modern" placeholder="Create password" minlength="6">
+                    </div>
+                    
+                    <button type="submit" class="btn-modern w-full mb-4">
+                        <i class="fas fa-user-plus mr-2"></i>Create Account
+                    </button>
+                </form>
+                
+                <div class="text-center">
+                    <button type="button" onclick="showLogin()" class="text-blue-600 font-semibold hover:underline">
+                        Back to Login
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Main Application -->
+    <div id="mainApp" style="display: none;">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <div class="p-6 border-b border-gray-600">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-graduation-cap text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold" id="sidebarUserName">Student Hub</h3>
+                        <p class="text-gray-300 text-sm" id="sidebarUserRole">Dashboard</p>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="mt-6" id="sidebarNav">
+                <!-- Navigation items will be populated by JavaScript -->
+            </nav>
+            
+            <div class="absolute bottom-6 left-6 right-6">
+                <button onclick="logout()" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg transition-colors">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div id="mainContent" class="main-content">
+            <!-- Header -->
+            <div class="bg-white rounded-2xl p-6 mb-6 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <button onclick="toggleSidebar()" class="mr-4 p-2 hover:bg-gray-100 rounded-lg">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-800" id="pageTitle">Dashboard</h1>
+                            <p class="text-gray-600" id="pageSubtitle">Welcome back!</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button id="installButton" onclick="installApp()" class="btn-modern text-sm hidden">
+                            <i class="fas fa-download mr-2"></i>Install App
+                        </button>
+                        <div class="text-right">
+                            <p class="font-semibold text-gray-800" id="headerUserName">User</p>
+                            <p class="text-sm text-gray-600" id="headerUserRole">Role</p>
+                        </div>
+                        <div class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div id="contentArea">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Student Modal -->
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Add New Student</h2>
+                <button onclick="closeModal('addStudentModal')" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form onsubmit="addStudent(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                        <input type="text" id="studentName" required class="input-modern" placeholder="Enter full name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                        <input type="email" id="studentEmail" required class="input-modern" placeholder="Enter email">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Student ID</label>
+                        <input type="text" id="studentId" required class="input-modern" placeholder="Enter student ID">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Course</label>
+                        <select id="studentCourse" required class="input-modern">
+                            <option value="">Select Course</option>
+                            <option value="computer-engineering">Computer Engineering</option>
+                            <option value="mechanical-engineering">Mechanical Engineering</option>
+                            <option value="electrical-engineering">Electrical Engineering</option>
+                            <option value="civil-engineering">Civil Engineering</option>
+                            <option value="electronics-telecom">Electronics & Telecommunication</option>
+                            <option value="automobile-engineering">Automobile Engineering</option>
+                            <option value="information-technology">Information Technology</option>
+                            <option value="chemical-engineering">Chemical Engineering</option>
+                            <option value="textile-technology">Textile Technology</option>
+                            <option value="architecture">Architecture</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Year</label>
+                        <select id="studentYear" required class="input-modern">
+                            <option value="">Select Year</option>
+                            <option value="1">First Year</option>
+                            <option value="2">Second Year</option>
+                            <option value="3">Third Year</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
+                        <input type="tel" id="studentPhone" required class="input-modern" placeholder="Enter phone number">
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="closeModal('addStudentModal')" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn-modern">
+                        <i class="fas fa-plus mr-2"></i>Add Student
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mark Attendance Modal -->
+    <div id="attendanceModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Mark Attendance</h2>
+                <button onclick="closeModal('attendanceModal')" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Date</label>
+                <input type="date" id="attendanceDate" class="input-modern" value="">
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+                <select id="attendanceSubject" class="input-modern">
+                    <option value="mathematics">Mathematics</option>
+                    <option value="physics">Physics</option>
+                    <option value="chemistry">Chemistry</option>
+                    <option value="programming">Programming</option>
+                    <option value="workshop">Workshop</option>
+                </select>
+            </div>
+            <div id="attendanceList" class="space-y-3 max-h-96 overflow-y-auto">
+                <!-- Attendance list will be populated by JavaScript -->
+            </div>
+            <div class="flex justify-end space-x-4 mt-6">
+                <button type="button" onclick="closeModal('attendanceModal')" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                    Cancel
+                </button>
+                <button onclick="saveAttendance()" class="btn-modern">
+                    <i class="fas fa-save mr-2"></i>Save Attendance
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Marks Modal -->
+    <div id="marksModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Add Marks</h2>
+                <button onclick="closeModal('marksModal')" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form onsubmit="addMarks(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Student</label>
+                        <select id="marksStudent" required class="input-modern">
+                            <option value="">Select Student</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+                        <select id="marksSubject" required class="input-modern">
+                            <option value="mathematics">Mathematics</option>
+                            <option value="physics">Physics</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="programming">Programming</option>
+                            <option value="workshop">Workshop</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Exam Type</label>
+                        <select id="marksExamType" required class="input-modern">
+                            <option value="internal">Internal Assessment</option>
+                            <option value="midterm">Mid-term Exam</option>
+                            <option value="final">Final Exam</option>
+                            <option value="practical">Practical</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Total Marks</label>
+                        <input type="number" id="marksTotalMarks" required class="input-modern" placeholder="Total marks" min="1" max="100">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Obtained Marks</label>
+                        <input type="number" id="marksObtained" required class="input-modern" placeholder="Obtained marks" min="0">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Date</label>
+                        <input type="date" id="marksDate" required class="input-modern">
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="closeModal('marksModal')" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn-modern">
+                        <i class="fas fa-plus mr-2"></i>Add Marks
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // PWA Variables
+        // Global Variables
+        let currentUser = null;
+        let students = [];
+        let attendance = [];
+        let marks = [];
+        let users = [];
         let deferredPrompt;
-        let isInstalled = false;
 
-        // Check if app is installed
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            isInstalled = true;
-        }
-
-        // PWA Functions
-        function showInstallPrompt() {
-            if (!isInstalled && !localStorage.getItem('installPromptDismissed')) {
-                document.getElementById('installPrompt').classList.add('show');
+        // Data Storage Functions
+        function saveData() {
+            try {
+                localStorage.setItem('studentHub_users', JSON.stringify(users));
+                localStorage.setItem('studentHub_students', JSON.stringify(students));
+                localStorage.setItem('studentHub_attendance', JSON.stringify(attendance));
+                localStorage.setItem('studentHub_marks', JSON.stringify(marks));
+                localStorage.setItem('studentHub_currentUser', JSON.stringify(currentUser));
+            } catch (error) {
+                console.log('Storage not available');
             }
         }
 
+        function loadData() {
+            try {
+                const savedUsers = localStorage.getItem('studentHub_users');
+                const savedStudents = localStorage.getItem('studentHub_students');
+                const savedAttendance = localStorage.getItem('studentHub_attendance');
+                const savedMarks = localStorage.getItem('studentHub_marks');
+                const savedCurrentUser = localStorage.getItem('studentHub_currentUser');
+
+                if (savedUsers) users = JSON.parse(savedUsers);
+                if (savedStudents) students = JSON.parse(savedStudents);
+                if (savedAttendance) attendance = JSON.parse(savedAttendance);
+                if (savedMarks) marks = JSON.parse(savedMarks);
+                if (savedCurrentUser) currentUser = JSON.parse(savedCurrentUser);
+
+                return savedUsers !== null;
+            } catch (error) {
+                console.log('Error loading data');
+                return false;
+            }
+        }
+
+        // PWA Install Functions
         function installApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        showSuccess('📱 App installed successfully!');
-                        isInstalled = true;
+                        showSuccess('App installed successfully! 📱');
                     }
                     deferredPrompt = null;
-                    dismissInstallPrompt();
+                    document.getElementById('installButton').style.display = 'none';
                 });
-            } else {
-                showInstallInstructions();
             }
         }
 
-        function dismissInstallPrompt() {
-            document.getElementById('installPrompt').classList.remove('show');
-            localStorage.setItem('installPromptDismissed', 'true');
+        // Initialize demo data
+        function initializeDemoData() {
+            // Demo users
+            users = [
+                { id: 1, name: 'Demo Student', email: 'student@demo.com', password: 'student123', role: 'student', course: 'computer-engineering', year: 2 },
+                { id: 2, name: 'Demo Teacher', email: 'teacher@demo.com', password: 'teacher123', role: 'teacher', subject: 'Computer Science' },
+                { id: 3, name: 'Demo Admin', email: 'admin@demo.com', password: 'admin123', role: 'admin' }
+            ];
+
+            // Demo students
+            students = [
+                { id: 'CS001', name: 'Rahul Sharma', email: 'rahul@student.com', course: 'computer-engineering', year: 2, phone: '9876543210', status: 'active' },
+                { id: 'ME002', name: 'Priya Patel', email: 'priya@student.com', course: 'mechanical-engineering', year: 1, phone: '9876543211', status: 'active' },
+                { id: 'EE003', name: 'Amit Kumar', email: 'amit@student.com', course: 'electrical-engineering', year: 3, phone: '9876543212', status: 'active' },
+                { id: 'CE004', name: 'Sneha Singh', email: 'sneha@student.com', course: 'civil-engineering', year: 2, phone: '9876543213', status: 'active' },
+                { id: 'IT005', name: 'Vikash Gupta', email: 'vikash@student.com', course: 'information-technology', year: 1, phone: '9876543214', status: 'active' }
+            ];
+
+            // Demo attendance
+            attendance = [
+                { studentId: 'CS001', date: '2024-01-15', subject: 'mathematics', status: 'present' },
+                { studentId: 'CS001', date: '2024-01-15', subject: 'programming', status: 'present' },
+                { studentId: 'ME002', date: '2024-01-15', subject: 'mathematics', status: 'absent' },
+                { studentId: 'EE003', date: '2024-01-15', subject: 'physics', status: 'present' }
+            ];
+
+            // Demo marks
+            marks = [
+                { studentId: 'CS001', subject: 'mathematics', examType: 'midterm', totalMarks: 100, obtainedMarks: 85, date: '2024-01-10' },
+                { studentId: 'CS001', subject: 'programming', examType: 'internal', totalMarks: 50, obtainedMarks: 45, date: '2024-01-08' },
+                { studentId: 'ME002', subject: 'mathematics', examType: 'midterm', totalMarks: 100, obtainedMarks: 78, date: '2024-01-10' },
+                { studentId: 'EE003', subject: 'physics', examType: 'final', totalMarks: 100, obtainedMarks: 92, date: '2024-01-12' }
+            ];
+
+            // Set today's date for attendance
+            document.getElementById('attendanceDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('marksDate').value = new Date().toISOString().split('T')[0];
         }
 
-        function showInstallInstructions() {
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            const isAndroid = /Android/.test(navigator.userAgent);
+        // Authentication Functions
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const user = users.find(u => 
+                (u.email === username || u.name.toLowerCase() === username.toLowerCase()) && 
+                u.password === password
+            );
+
+            if (user) {
+                currentUser = user;
+                saveData();
+                showSuccess(`Welcome ${user.name}!`);
+                showMainApp();
+            } else {
+                showError('Invalid credentials! Use demo accounts.');
+            }
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const role = document.getElementById('regRole').value;
+            const course = document.getElementById('regCourse').value;
+            const password = document.getElementById('regPassword').value;
+
+            // Check if email already exists
+            if (users.find(u => u.email === email)) {
+                showError('Email already exists!');
+                return;
+            }
+
+            const newUser = {
+                id: users.length + 1,
+                name,
+                email,
+                password,
+                role,
+                course: role === 'student' ? course : null,
+                year: role === 'student' ? 1 : null
+            };
+
+            users.push(newUser);
             
-            let instructions = '';
-            if (isIOS) {
-                instructions = '📱 To install on iOS:\n1. Tap Share (⬆️) in Safari\n2. Select "Add to Home Screen"\n3. Tap "Add"';
-            } else if (isAndroid) {
-                instructions = '📱 To install on Android:\n1. Tap menu (⋮) in Chrome\n2. Select "Add to Home screen"\n3. Tap "Add"';
-            } else {
-                instructions = '📱 To install:\n1. Look for install icon in address bar\n2. Click and follow prompts';
+            // If registering as student, add to students array
+            if (role === 'student') {
+                const studentId = course.toUpperCase().substring(0, 2) + String(students.length + 1).padStart(3, '0');
+                students.push({
+                    id: studentId,
+                    name,
+                    email,
+                    course,
+                    year: 1,
+                    phone: '',
+                    status: 'active'
+                });
             }
-            alert(instructions);
+
+            saveData();
+            showSuccess('Account created successfully! Please login.');
+            showLogin();
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        function toggleCourseField() {
+            const role = document.getElementById('regRole').value;
+            const courseField = document.getElementById('courseField');
+            const courseSelect = document.getElementById('regCourse');
+            
+            if (role === 'student') {
+                courseField.style.display = 'block';
+                courseSelect.required = true;
+            } else {
+                courseField.style.display = 'none';
+                courseSelect.required = false;
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            saveData();
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('authScreen').style.display = 'flex';
+            showSuccess('Logged out successfully!');
+        }
+
+        // Main App Functions
+        function showMainApp() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            
+            // Update user info
+            document.getElementById('sidebarUserName').textContent = currentUser.name;
+            document.getElementById('sidebarUserRole').textContent = currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1);
+            document.getElementById('headerUserName').textContent = currentUser.name;
+            document.getElementById('headerUserRole').textContent = currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1);
+            
+            setupNavigation();
+            showDashboard();
+        }
+
+        function setupNavigation() {
+            const nav = document.getElementById('sidebarNav');
+            let navItems = [];
+
+            if (currentUser.role === 'admin') {
+                navItems = [
+                    { icon: 'fas fa-tachometer-alt', text: 'Dashboard', action: 'showDashboard()' },
+                    { icon: 'fas fa-users', text: 'Students', action: 'showStudents()' },
+                    { icon: 'fas fa-user-check', text: 'Attendance', action: 'showAttendance()' },
+                    { icon: 'fas fa-chart-line', text: 'Grades', action: 'showGrades()' },
+                    { icon: 'fas fa-brain', text: 'AI Analytics', action: 'showAIAnalytics()' },
+                    { icon: 'fas fa-file-alt', text: 'Reports', action: 'showReports()' },
+                    { icon: 'fas fa-cog', text: 'Settings', action: 'showSettings()' }
+                ];
+            } else if (currentUser.role === 'teacher') {
+                navItems = [
+                    { icon: 'fas fa-tachometer-alt', text: 'Dashboard', action: 'showDashboard()' },
+                    { icon: 'fas fa-users', text: 'My Students', action: 'showStudents()' },
+                    { icon: 'fas fa-user-check', text: 'Mark Attendance', action: 'showAttendance()' },
+                    { icon: 'fas fa-chart-line', text: 'Add Grades', action: 'showGrades()' },
+                    { icon: 'fas fa-file-alt', text: 'Reports', action: 'showReports()' }
+                ];
+            } else {
+                navItems = [
+                    { icon: 'fas fa-tachometer-alt', text: 'Dashboard', action: 'showDashboard()' },
+                    { icon: 'fas fa-user-check', text: 'My Attendance', action: 'showMyAttendance()' },
+                    { icon: 'fas fa-chart-line', text: 'My Grades', action: 'showMyGrades()' },
+                    { icon: 'fas fa-file-alt', text: 'Progress Report', action: 'showMyProgress()' }
+                ];
+            }
+
+            nav.innerHTML = navItems.map(item => 
+                `<a href="#" class="sidebar-item" onclick="${item.action}">
+                    <i class="${item.icon}"></i>
+                    <span>${item.text}</span>
+                </a>`
+            ).join('');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('sidebar-open');
+        }
+
+        // Dashboard Functions
+        function showDashboard() {
+            updatePageTitle('Dashboard', 'Overview of your system');
+            
+            let dashboardContent = '';
+            
+            if (currentUser.role === 'admin') {
+                dashboardContent = `
+                    <div class="stats-grid mb-8">
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">${students.length}</div>
+                            <div class="text-gray-600">Total Students</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-green-600 mb-2">${calculateAttendanceRate()}%</div>
+                            <div class="text-gray-600">Attendance Rate</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${calculateAttendanceRate()}%"></div>
+                            </div>
+                        </div>
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">${calculateAverageGrade()}%</div>
+                            <div class="text-gray-600">Average Grade</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${calculateAverageGrade()}%"></div>
+                            </div>
+                        </div>
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-orange-600 mb-2">${getActiveCoursesCount()}</div>
+                            <div class="text-gray-600">Active Courses</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="card-modern">
+                            <h3 class="text-xl font-bold mb-4">Recent Activities</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-user-plus text-blue-600 mr-3"></i>
+                                    <div>
+                                        <p class="font-semibold">New student registered</p>
+                                        <p class="text-sm text-gray-600">Vikash Gupta joined IT course</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                                    <div>
+                                        <p class="font-semibold">Attendance marked</p>
+                                        <p class="text-sm text-gray-600">Mathematics class - 85% present</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                                    <i class="fas fa-chart-line text-purple-600 mr-3"></i>
+                                    <div>
+                                        <p class="font-semibold">Grades updated</p>
+                                        <p class="text-sm text-gray-600">Midterm results published</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-modern">
+                            <h3 class="text-xl font-bold mb-4">Quick Actions</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <button onclick="openModal('addStudentModal')" class="btn-modern text-center">
+                                    <i class="fas fa-user-plus mb-2"></i>
+                                    <div>Add Student</div>
+                                </button>
+                                <button onclick="openModal('attendanceModal')" class="btn-success text-center">
+                                    <i class="fas fa-user-check mb-2"></i>
+                                    <div>Mark Attendance</div>
+                                </button>
+                                <button onclick="openModal('marksModal')" class="btn-warning text-center">
+                                    <i class="fas fa-plus mb-2"></i>
+                                    <div>Add Marks</div>
+                                </button>
+                                <button onclick="showReports()" class="btn-info text-center">
+                                    <i class="fas fa-file-alt mb-2"></i>
+                                    <div>Generate Report</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (currentUser.role === 'teacher') {
+                dashboardContent = `
+                    <div class="stats-grid mb-8">
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">${students.length}</div>
+                            <div class="text-gray-600">My Students</div>
+                        </div>
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-green-600 mb-2">${calculateAttendanceRate()}%</div>
+                            <div class="text-gray-600">Class Attendance</div>
+                        </div>
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">${marks.length}</div>
+                            <div class="text-gray-600">Grades Entered</div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="card-modern">
+                            <h3 class="text-xl font-bold mb-4">Today's Classes</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                                    <div>
+                                        <p class="font-semibold">Mathematics</p>
+                                        <p class="text-sm text-gray-600">9:00 AM - 10:00 AM</p>
+                                    </div>
+                                    <button onclick="openModal('attendanceModal')" class="btn-modern text-sm">Mark Attendance</button>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                                    <div>
+                                        <p class="font-semibold">Programming</p>
+                                        <p class="text-sm text-gray-600">11:00 AM - 12:00 PM</p>
+                                    </div>
+                                    <button onclick="openModal('attendanceModal')" class="btn-modern text-sm">Mark Attendance</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-modern">
+                            <h3 class="text-xl font-bold mb-4">Quick Actions</h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <button onclick="openModal('attendanceModal')" class="btn-success">
+                                    <i class="fas fa-user-check mr-2"></i>Mark Attendance
+                                </button>
+                                <button onclick="openModal('marksModal')" class="btn-warning">
+                                    <i class="fas fa-plus mr-2"></i>Add Marks
+                                </button>
+                                <button onclick="showReports()" class="btn-info">
+                                    <i class="fas fa-file-alt mr-2"></i>Class Reports
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const studentData = students.find(s => s.email === currentUser.email);
+                const studentAttendance = attendance.filter(a => a.studentId === studentData?.id);
+                const studentMarks = marks.filter(m => m.studentId === studentData?.id);
+                
+                dashboardContent = `
+                    <div class="stats-grid mb-8">
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">${studentData?.id || 'N/A'}</div>
+                            <div class="text-gray-600">Student ID</div>
+                        </div>
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-green-600 mb-2">${calculateStudentAttendance(studentData?.id)}%</div>
+                            <div class="text-gray-600">My Attendance</div>
+                        </div>
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">${calculateStudentAverage(studentData?.id)}%</div>
+                            <div class="text-gray-600">Average Grade</div>
+                        </div>
+                        <div class="card-modern text-center">
+                            <div class="text-3xl font-bold text-orange-600 mb-2">${studentData?.year || 'N/A'}</div>
+                            <div class="text-gray-600">Current Year</div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="card-modern">
+                            <h3 class="text-xl font-bold mb-4">Recent Grades</h3>
+                            <div class="space-y-3">
+                                ${studentMarks.slice(-3).map(mark => `
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                        <div>
+                                            <p class="font-semibold">${mark.subject.charAt(0).toUpperCase() + mark.subject.slice(1)}</p>
+                                            <p class="text-sm text-gray-600">${mark.examType}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-bold text-lg">${mark.obtainedMarks}/${mark.totalMarks}</p>
+                                            <p class="text-sm ${getGradeColor(mark.obtainedMarks, mark.totalMarks)}">${calculatePercentage(mark.obtainedMarks, mark.totalMarks)}%</p>
+                                        </div>
+                                    </div>
+                                `).join('') || '<p class="text-gray-500">No grades available</p>'}
+                            </div>
+                        </div>
+                        
+                        <div class="card-modern">
+                            <h3 class="text-xl font-bold mb-4">Course Information</h3>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-blue-50 rounded-lg">
+                                    <p class="font-semibold">Course</p>
+                                    <p class="text-gray-600">${formatCourseName(studentData?.course || 'N/A')}</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg">
+                                    <p class="font-semibold">Academic Year</p>
+                                    <p class="text-gray-600">${studentData?.year || 'N/A'} Year</p>
+                                </div>
+                                <div class="p-3 bg-purple-50 rounded-lg">
+                                    <p class="font-semibold">Status</p>
+                                    <p class="text-gray-600">${studentData?.status || 'Active'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('contentArea').innerHTML = dashboardContent;
+        }
+
+        // Students Management
+        function showStudents() {
+            updatePageTitle('Students', 'Manage student records');
+            
+            const studentsContent = `
+                <div class="card-modern">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Student Records</h2>
+                        ${currentUser.role === 'admin' ? '<button onclick="openModal(\'addStudentModal\')" class="btn-modern"><i class="fas fa-plus mr-2"></i>Add Student</button>' : ''}
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Name</th>
+                                    <th>Course</th>
+                                    <th>Year</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Status</th>
+                                    ${currentUser.role === 'admin' ? '<th>Actions</th>' : ''}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${students.map(student => `
+                                    <tr>
+                                        <td><span class="font-semibold">${student.id}</span></td>
+                                        <td>${student.name}</td>
+                                        <td>${formatCourseName(student.course)}</td>
+                                        <td>${student.year} Year</td>
+                                        <td>${student.email}</td>
+                                        <td>${student.phone}</td>
+                                        <td><span class="badge badge-success">${student.status}</span></td>
+                                        ${currentUser.role === 'admin' ? `
+                                            <td>
+                                                <button onclick="editStudent('${student.id}')" class="btn-info text-sm mr-2">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button onclick="deleteStudent('${student.id}')" class="btn-danger text-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        ` : ''}
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('contentArea').innerHTML = studentsContent;
+        }
+
+        // Attendance Management
+        function showAttendance() {
+            updatePageTitle('Attendance', 'Track student attendance');
+            
+            const attendanceContent = `
+                <div class="card-modern">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Attendance Management</h2>
+                        ${currentUser.role !== 'student' ? '<button onclick="openModal(\'attendanceModal\')" class="btn-modern"><i class="fas fa-plus mr-2"></i>Mark Attendance</button>' : ''}
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                        <div class="card-modern text-center">
+                            <div class="text-2xl font-bold text-green-600 mb-2">${calculatePresentCount()}</div>
+                            <div class="text-gray-600">Present Today</div>
+                        </div>
+                        <div class="card-modern text-center">
+                            <div class="text-2xl font-bold text-red-600 mb-2">${calculateAbsentCount()}</div>
+                            <div class="text-gray-600">Absent Today</div>
+                        </div>
+                        <div class="card-modern text-center">
+                            <div class="text-2xl font-bold text-blue-600 mb-2">${calculateAttendanceRate()}%</div>
+                            <div class="text-gray-600">Attendance Rate</div>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Student</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${attendance.map(record => {
+                                    const student = students.find(s => s.id === record.studentId);
+                                    return `
+                                        <tr>
+                                            <td>${formatDate(record.date)}</td>
+                                            <td>${student ? student.name : 'Unknown'}</td>
+                                            <td>${record.subject.charAt(0).toUpperCase() + record.subject.slice(1)}</td>
+                                            <td>
+                                                <span class="badge ${record.status === 'present' ? 'badge-success' : 'badge-danger'}">
+                                                    ${record.status.charAt(0).toUpperCase() + record.status.slice(1)}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('contentArea').innerHTML = attendanceContent;
+        }
+
+        // Grades Management
+        function showGrades() {
+            updatePageTitle('Grades', 'Manage student grades');
+            
+            const gradesContent = `
+                <div class="card-modern">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Grade Management</h2>
+                        ${currentUser.role !== 'student' ? '<button onclick="openModal(\'marksModal\')" class="btn-modern"><i class="fas fa-plus mr-2"></i>Add Marks</button>' : ''}
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Subject</th>
+                                    <th>Exam Type</th>
+                                    <th>Marks</th>
+                                    <th>Percentage</th>
+                                    <th>Grade</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${marks.map(mark => {
+                                    const student = students.find(s => s.id === mark.studentId);
+                                    const percentage = calculatePercentage(mark.obtainedMarks, mark.totalMarks);
+                                    const grade = getLetterGrade(percentage);
+                                    
+                                    return `
+                                        <tr>
+                                            <td>${student ? student.name : 'Unknown'}</td>
+                                            <td>${mark.subject.charAt(0).toUpperCase() + mark.subject.slice(1)}</td>
+                                            <td>${mark.examType.charAt(0).toUpperCase() + mark.examType.slice(1)}</td>
+                                            <td>${mark.obtainedMarks}/${mark.totalMarks}</td>
+                                            <td><span class="${getGradeColor(mark.obtainedMarks, mark.totalMarks)}">${percentage}%</span></td>
+                                            <td><span class="badge ${getGradeBadgeClass(grade)}">${grade}</span></td>
+                                            <td>${formatDate(mark.date)}</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('contentArea').innerHTML = gradesContent;
+        }
+
+        // AI Analytics
+        function showAIAnalytics() {
+            updatePageTitle('AI Analytics', 'Intelligent insights and predictions');
+            
+            const analyticsContent = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="card-modern">
+                        <h3 class="text-xl font-bold mb-4">🤖 AI Predictions</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-l-4 border-blue-500">
+                                <h4 class="font-semibold text-blue-800">Performance Prediction</h4>
+                                <p class="text-sm text-blue-700 mt-1">Based on current trends, 85% of students are likely to pass with distinction</p>
+                                <div class="progress-bar mt-2">
+                                    <div class="progress-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border-l-4 border-green-500">
+                                <h4 class="font-semibold text-green-800">Attendance Forecast</h4>
+                                <p class="text-sm text-green-700 mt-1">Predicted attendance rate for next month: 92%</p>
+                                <div class="progress-bar mt-2">
+                                    <div class="progress-fill bg-green-500" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-gradient-to-r from-orange-50 to-red-50 rounded-lg border-l-4 border-orange-500">
+                                <h4 class="font-semibold text-orange-800">At-Risk Students</h4>
+                                <p class="text-sm text-orange-700 mt-1">3 students identified as needing additional support</p>
+                                <div class="mt-2">
+                                    <span class="badge badge-warning">Immediate Attention</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-modern">
+                        <h3 class="text-xl font-bold mb-4">📊 Smart Insights</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-purple-50 rounded-lg">
+                                <h4 class="font-semibold text-purple-800">Subject Performance</h4>
+                                <p class="text-sm text-purple-700 mt-1">Mathematics shows highest improvement rate (+15%)</p>
+                                <div class="mt-2 flex items-center">
+                                    <i class="fas fa-arrow-up text-green-500 mr-2"></i>
+                                    <span class="text-green-600 font-semibold">+15% improvement</span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-indigo-50 rounded-lg">
+                                <h4 class="font-semibold text-indigo-800">Optimal Study Time</h4>
+                                <p class="text-sm text-indigo-700 mt-1">Best performance observed during 10 AM - 12 PM slots</p>
+                                <div class="mt-2">
+                                    <span class="badge badge-info">Peak Hours: 10-12 AM</span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-teal-50 rounded-lg">
+                                <h4 class="font-semibold text-teal-800">Engagement Score</h4>
+                                <p class="text-sm text-teal-700 mt-1">Overall student engagement: 88%</p>
+                                <div class="progress-bar mt-2">
+                                    <div class="progress-fill bg-teal-500" style="width: 88%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-modern lg:col-span-2">
+                        <h3 class="text-xl font-bold mb-4">🎯 ML Recommendations</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="p-4 bg-gradient-to-br from-pink-50 to-rose-50 rounded-lg border border-pink-200">
+                                <div class="flex items-center mb-3">
+                                    <i class="fas fa-lightbulb text-pink-600 mr-2"></i>
+                                    <h4 class="font-semibold text-pink-800">Study Groups</h4>
+                                </div>
+                                <p class="text-sm text-pink-700">Form study groups for Physics - 23% improvement expected</p>
+                            </div>
+                            
+                            <div class="p-4 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-lg border border-cyan-200">
+                                <div class="flex items-center mb-3">
+                                    <i class="fas fa-clock text-cyan-600 mr-2"></i>
+                                    <h4 class="font-semibold text-cyan-800">Schedule Optimization</h4>
+                                </div>
+                                <p class="text-sm text-cyan-700">Move practical sessions to afternoon for better results</p>
+                            </div>
+                            
+                            <div class="p-4 bg-gradient-to-br from-emerald-50 to-green-50 rounded-lg border border-emerald-200">
+                                <div class="flex items-center mb-3">
+                                    <i class="fas fa-users text-emerald-600 mr-2"></i>
+                                    <h4 class="font-semibold text-emerald-800">Peer Learning</h4>
+                                </div>
+                                <p class="text-sm text-emerald-700">Top performers can mentor struggling students</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('contentArea').innerHTML = analyticsContent;
+        }
+
+        // Reports
+        function showReports() {
+            updatePageTitle('Reports', 'Generate comprehensive reports');
+            
+            const reportsContent = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="card-modern">
+                        <h3 class="text-xl font-bold mb-4">📈 Performance Reports</h3>
+                        <div class="space-y-4">
+                            <button onclick="generateReport('attendance')" class="w-full p-4 text-left bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-semibold text-blue-800">Attendance Report</h4>
+                                        <p class="text-sm text-blue-600">Detailed attendance analysis</p>
+                                    </div>
+                                    <i class="fas fa-download text-blue-600"></i>
+                                </div>
+                            </button>
+                            
+                            <button onclick="generateReport('grades')" class="w-full p-4 text-left bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 transition-colors">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-semibold text-green-800">Grade Report</h4>
+                                        <p class="text-sm text-green-600">Comprehensive grade analysis</p>
+                                    </div>
+                                    <i class="fas fa-download text-green-600"></i>
+                                </div>
+                            </button>
+                            
+                            <button onclick="generateReport('progress')" class="w-full p-4 text-left bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-colors">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-semibold text-purple-800">Progress Report</h4>
+                                        <p class="text-sm text-purple-600">Student progress tracking</p>
+                                    </div>
+                                    <i class="fas fa-download text-purple-600"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-modern">
+                        <h3 class="text-xl font-bold mb-4">📊 Analytics Dashboard</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <h4 class="font-semibold mb-2">Overall Statistics</h4>
+                                <div class="grid grid-cols-2 gap-4 text-center">
+                                    <div>
+                                        <div class="text-2xl font-bold text-blue-600">${students.length}</div>
+                                        <div class="text-sm text-gray-600">Total Students</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-2xl font-bold text-green-600">${calculateAttendanceRate()}%</div>
+                                        <div class="text-sm text-gray-600">Avg Attendance</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-2xl font-bold text-purple-600">${calculateAverageGrade()}%</div>
+                                        <div class="text-sm text-gray-600">Avg Grade</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-2xl font-bold text-orange-600">${getActiveCoursesCount()}</div>
+                                        <div class="text-sm text-gray-600">Active Courses</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
+                                <h4 class="font-semibold mb-2">Quick Insights</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>85% students maintaining good attendance</li>
+                                    <li class="flex items-center"><i class="fas fa-chart-line text-blue-500 mr-2"></i>15% improvement in overall grades</li>
+                                    <li class="flex items-center"><i class="fas fa-star text-yellow-500 mr-2"></i>Computer Engineering leading performance</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('contentArea').innerHTML = reportsContent;
+        }
+
+        // Student-specific views
+        function showMyAttendance() {
+            const studentData = students.find(s => s.email === currentUser.email);
+            const studentAttendance = attendance.filter(a => a.studentId === studentData?.id);
+            
+            updatePageTitle('My Attendance', 'View your attendance record');
+            
+            const attendanceContent = `
+                <div class="card-modern">
+                    <h2 class="text-2xl font-bold mb-6">My Attendance Record</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <div class="text-3xl font-bold text-green-600">${calculateStudentAttendance(studentData?.id)}%</div>
+                            <div class="text-gray-600">Overall Attendance</div>
+                        </div>
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <div class="text-3xl font-bold text-blue-600">${studentAttendance.filter(a => a.status === 'present').length}</div>
+                            <div class="text-gray-600">Classes Attended</div>
+                        </div>
+                        <div class="text-center p-4 bg-red-50 rounded-lg">
+                            <div class="text-3xl font-bold text-red-600">${studentAttendance.filter(a => a.status === 'absent').length}</div>
+                            <div class="text-gray-600">Classes Missed</div>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${studentAttendance.map(record => `
+                                    <tr>
+                                        <td>${formatDate(record.date)}</td>
+                                        <td>${record.subject.charAt(0).toUpperCase() + record.subject.slice(1)}</td>
+                                        <td>
+                                            <span class="badge ${record.status === 'present' ? 'badge-success' : 'badge-danger'}">
+                                                ${record.status.charAt(0).toUpperCase() + record.status.slice(1)}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                `).join('') || '<tr><td colspan="3" class="text-center text-gray-500">No attendance records found</td></tr>'}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('contentArea').innerHTML = attendanceContent;
+        }
+
+        function showMyGrades() {
+            const studentData = students.find(s => s.email === currentUser.email);
+            const studentMarks = marks.filter(m => m.studentId === studentData?.id);
+            
+            updatePageTitle('My Grades', 'View your academic performance');
+            
+            const gradesContent = `
+                <div class="card-modern">
+                    <h2 class="text-2xl font-bold mb-6">My Academic Performance</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="text-center p-4 bg-purple-50 rounded-lg">
+                            <div class="text-3xl font-bold text-purple-600">${calculateStudentAverage(studentData?.id)}%</div>
+                            <div class="text-gray-600">Overall Average</div>
+                        </div>
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <div class="text-3xl font-bold text-green-600">${getStudentHighestScore(studentData?.id)}%</div>
+                            <div class="text-gray-600">Highest Score</div>
+                        </div>
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <div class="text-3xl font-bold text-blue-600">${studentMarks.length}</div>
+                            <div class="text-gray-600">Total Assessments</div>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Exam Type</th>
+                                    <th>Marks</th>
+                                    <th>Percentage</th>
+                                    <th>Grade</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${studentMarks.map(mark => {
+                                    const percentage = calculatePercentage(mark.obtainedMarks, mark.totalMarks);
+                                    const grade = getLetterGrade(percentage);
+                                    
+                                    return `
+                                        <tr>
+                                            <td>${mark.subject.charAt(0).toUpperCase() + mark.subject.slice(1)}</td>
+                                            <td>${mark.examType.charAt(0).toUpperCase() + mark.examType.slice(1)}</td>
+                                            <td>${mark.obtainedMarks}/${mark.totalMarks}</td>
+                                            <td><span class="${getGradeColor(mark.obtainedMarks, mark.totalMarks)}">${percentage}%</span></td>
+                                            <td><span class="badge ${getGradeBadgeClass(grade)}">${grade}</span></td>
+                                            <td>${formatDate(mark.date)}</td>
+                                        </tr>
+                                    `;
+                                }).join('') || '<tr><td colspan="6" class="text-center text-gray-500">No grades available</td></tr>'}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('contentArea').innerHTML = gradesContent;
+        }
+
+        function showMyProgress() {
+            const studentData = students.find(s => s.email === currentUser.email);
+            
+            updatePageTitle('My Progress', 'Track your academic journey');
+            
+            const progressContent = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="card-modern">
+                        <h3 class="text-xl font-bold mb-4">📈 Academic Progress</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg">
+                                <h4 class="font-semibold text-blue-800">Current Status</h4>
+                                <p class="text-blue-700">Year ${studentData?.year || 'N/A'} - ${formatCourseName(studentData?.course || 'N/A')}</p>
+                                <div class="progress-bar mt-2">
+                                    <div class="progress-fill" style="width: ${(studentData?.year || 1) * 33.33}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <h4 class="font-semibold text-green-800">Attendance Performance</h4>
+                                <p class="text-green-700">${calculateStudentAttendance(studentData?.id)}% - Excellent</p>
+                                <div class="progress-bar mt-2">
+                                    <div class="progress-fill bg-green-500" style="width: ${calculateStudentAttendance(studentData?.id)}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-purple-50 rounded-lg">
+                                <h4 class="font-semibold text-purple-800">Grade Performance</h4>
+                                <p class="text-purple-700">${calculateStudentAverage(studentData?.id)}% - ${getPerformanceLevel(calculateStudentAverage(studentData?.id))}</p>
+                                <div class="progress-bar mt-2">
+                                    <div class="progress-fill bg-purple-500" style="width: ${calculateStudentAverage(studentData?.id)}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-modern">
+                        <h3 class="text-xl font-bold mb-4">🎯 Goals & Achievements</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+                                <h4 class="font-semibold text-yellow-800">Current Goals</h4>
+                                <ul class="text-sm text-yellow-700 mt-2 space-y-1">
+                                    <li>• Maintain 90%+ attendance</li>
+                                    <li>• Achieve 85%+ in all subjects</li>
+                                    <li>• Complete all practical assignments</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="p-4 bg-green-50 rounded-lg border-l-4 border-green-400">
+                                <h4 class="font-semibold text-green-800">Achievements</h4>
+                                <ul class="text-sm text-green-700 mt-2 space-y-1">
+                                    <li>• ✅ Excellent attendance record</li>
+                                    <li>• ✅ Consistent performance</li>
+                                    <li>• ✅ Active participation</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                                <h4 class="font-semibold text-blue-800">Recommendations</h4>
+                                <ul class="text-sm text-blue-700 mt-2 space-y-1">
+                                    <li>• Focus on practical skills</li>
+                                    <li>• Join study groups</li>
+                                    <li>• Participate in projects</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('contentArea').innerHTML = progressContent;
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'flex';
+            
+            if (modalId === 'attendanceModal') {
+                populateAttendanceList();
+            } else if (modalId === 'marksModal') {
+                populateStudentSelect();
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function populateAttendanceList() {
+            const attendanceList = document.getElementById('attendanceList');
+            attendanceList.innerHTML = students.map(student => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold mr-3">
+                            ${student.name.charAt(0)}
+                        </div>
+                        <div>
+                            <p class="font-semibold">${student.name}</p>
+                            <p class="text-sm text-gray-600">${student.id} - ${formatCourseName(student.course)}</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="attendance_${student.id}" value="present" class="mr-2" checked>
+                            <span class="text-green-600 font-semibold">Present</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="attendance_${student.id}" value="absent" class="mr-2">
+                            <span class="text-red-600 font-semibold">Absent</span>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function populateStudentSelect() {
+            const studentSelect = document.getElementById('marksStudent');
+            studentSelect.innerHTML = '<option value="">Select Student</option>' + 
+                students.map(student => 
+                    `<option value="${student.id}">${student.name} (${student.id})</option>`
+                ).join('');
+        }
+
+        function saveAttendance() {
+            const date = document.getElementById('attendanceDate').value;
+            const subject = document.getElementById('attendanceSubject').value;
+            
+            students.forEach(student => {
+                const status = document.querySelector(`input[name="attendance_${student.id}"]:checked`).value;
+                attendance.push({
+                    studentId: student.id,
+                    date: date,
+                    subject: subject,
+                    status: status
+                });
+            });
+            
+            saveData();
+            showSuccess('Attendance saved successfully!');
+            closeModal('attendanceModal');
+            
+            if (document.getElementById('pageTitle').textContent === 'Attendance') {
+                showAttendance();
+            }
+        }
+
+        function addStudent(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('studentName').value;
+            const email = document.getElementById('studentEmail').value;
+            const studentId = document.getElementById('studentId').value;
+            const course = document.getElementById('studentCourse').value;
+            const year = document.getElementById('studentYear').value;
+            const phone = document.getElementById('studentPhone').value;
+            
+            // Check if student ID already exists
+            if (students.find(s => s.id === studentId)) {
+                showError('Student ID already exists!');
+                return;
+            }
+            
+            students.push({
+                id: studentId,
+                name: name,
+                email: email,
+                course: course,
+                year: parseInt(year),
+                phone: phone,
+                status: 'active'
+            });
+            
+            saveData();
+            showSuccess('Student added successfully!');
+            closeModal('addStudentModal');
+            document.getElementById('addStudentModal').querySelector('form').reset();
+            
+            if (document.getElementById('pageTitle').textContent === 'Students') {
+                showStudents();
+            }
+        }
+
+        function addMarks(event) {
+            event.preventDefault();
+            
+            const studentId = document.getElementById('marksStudent').value;
+            const subject = document.getElementById('marksSubject').value;
+            const examType = document.getElementById('marksExamType').value;
+            const totalMarks = parseInt(document.getElementById('marksTotalMarks').value);
+            const obtainedMarks = parseInt(document.getElementById('marksObtained').value);
+            const date = document.getElementById('marksDate').value;
+            
+            if (obtainedMarks > totalMarks) {
+                showError('Obtained marks cannot be greater than total marks!');
+                return;
+            }
+            
+            marks.push({
+                studentId: studentId,
+                subject: subject,
+                examType: examType,
+                totalMarks: totalMarks,
+                obtainedMarks: obtainedMarks,
+                date: date
+            });
+            
+            saveData();
+            showSuccess('Marks added successfully!');
+            closeModal('marksModal');
+            document.getElementById('marksModal').querySelector('form').reset();
+            
+            if (document.getElementById('pageTitle').textContent === 'Grades') {
+                showGrades();
+            }
+        }
+
+        function generateReport(type) {
+            let reportData = '';
+            
+            switch(type) {
+                case 'attendance':
+                    reportData = `ATTENDANCE REPORT\n\n`;
+                    reportData += `Generated on: ${new Date().toLocaleDateString()}\n`;
+                    reportData += `Total Students: ${students.length}\n`;
+                    reportData += `Overall Attendance Rate: ${calculateAttendanceRate()}%\n\n`;
+                    reportData += `DETAILED RECORDS:\n`;
+                    attendance.forEach(record => {
+                        const student = students.find(s => s.id === record.studentId);
+                        reportData += `${record.date} | ${student?.name || 'Unknown'} | ${record.subject} | ${record.status}\n`;
+                    });
+                    break;
+                    
+                case 'grades':
+                    reportData = `GRADE REPORT\n\n`;
+                    reportData += `Generated on: ${new Date().toLocaleDateString()}\n`;
+                    reportData += `Total Students: ${students.length}\n`;
+                    reportData += `Average Grade: ${calculateAverageGrade()}%\n\n`;
+                    reportData += `DETAILED RECORDS:\n`;
+                    marks.forEach(mark => {
+                        const student = students.find(s => s.id === mark.studentId);
+                        const percentage = calculatePercentage(mark.obtainedMarks, mark.totalMarks);
+                        reportData += `${student?.name || 'Unknown'} | ${mark.subject} | ${mark.obtainedMarks}/${mark.totalMarks} (${percentage}%)\n`;
+                    });
+                    break;
+                    
+                case 'progress':
+                    reportData = `PROGRESS REPORT\n\n`;
+                    reportData += `Generated on: ${new Date().toLocaleDateString()}\n\n`;
+                    students.forEach(student => {
+                        const studentAttendance = calculateStudentAttendance(student.id);
+                        const studentAverage = calculateStudentAverage(student.id);
+                        reportData += `STUDENT: ${student.name} (${student.id})\n`;
+                        reportData += `Course: ${formatCourseName(student.course)}\n`;
+                        reportData += `Year: ${student.year}\n`;
+                        reportData += `Attendance: ${studentAttendance}%\n`;
+                        reportData += `Average Grade: ${studentAverage}%\n\n`;
+                    });
+                    break;
+            }
+            
+            // Create and download file
+            const blob = new Blob([reportData], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${type}_report_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showSuccess(`${type.charAt(0).toUpperCase() + type.slice(1)} report generated successfully!`);
         }
 
         // Utility Functions
+        function updatePageTitle(title, subtitle) {
+            document.getElementById('pageTitle').textContent = title;
+            document.getElementById('pageSubtitle').textContent = subtitle;
+            
+            // Update active sidebar item
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.textContent.trim().includes(title)) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
         function showSuccess(message) {
             const notification = document.getElementById('successNotification');
             document.getElementById('successMessage').textContent = message;
@@ -346,45 +1798,144 @@
             setTimeout(() => notification.style.display = 'none', 3000);
         }
 
-        // Login Function
-        function handleLogin(event) {
-            event.preventDefault();
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Demo login logic
-            if ((username === 'student' && password === 'student123') ||
-                (username === 'teacher' && password === 'teacher123') ||
-                (username === 'admin' && password === 'admin123')) {
-                showSuccess('Login successful! Welcome to Student Hub!');
-                // Here you would redirect to main app
-                setTimeout(() => {
-                    alert('🎉 Login successful!\n\nThis is a demo. In the full version, you would now access the complete Student Management System with:\n\n✅ Student Records\n✅ Grade Management\n✅ Attendance Tracking\n✅ AI Analytics\n✅ Reports & More!');
-                }, 1000);
-            } else {
-                showError('Invalid credentials! Use demo accounts above.');
-            }
+        function formatCourseName(course) {
+            return course.split('-').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ');
         }
 
-        // PWA Event Listeners
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function calculateAttendanceRate() {
+            if (attendance.length === 0) return 0;
+            const presentCount = attendance.filter(a => a.status === 'present').length;
+            return Math.round((presentCount / attendance.length) * 100);
+        }
+
+        function calculatePresentCount() {
+            const today = new Date().toISOString().split('T')[0];
+            return attendance.filter(a => a.date === today && a.status === 'present').length;
+        }
+
+        function calculateAbsentCount() {
+            const today = new Date().toISOString().split('T')[0];
+            return attendance.filter(a => a.date === today && a.status === 'absent').length;
+        }
+
+        function calculateAverageGrade() {
+            if (marks.length === 0) return 0;
+            const totalPercentage = marks.reduce((sum, mark) => 
+                sum + calculatePercentage(mark.obtainedMarks, mark.totalMarks), 0
+            );
+            return Math.round(totalPercentage / marks.length);
+        }
+
+        function calculateStudentAttendance(studentId) {
+            const studentAttendance = attendance.filter(a => a.studentId === studentId);
+            if (studentAttendance.length === 0) return 0;
+            const presentCount = studentAttendance.filter(a => a.status === 'present').length;
+            return Math.round((presentCount / studentAttendance.length) * 100);
+        }
+
+        function calculateStudentAverage(studentId) {
+            const studentMarks = marks.filter(m => m.studentId === studentId);
+            if (studentMarks.length === 0) return 0;
+            const totalPercentage = studentMarks.reduce((sum, mark) => 
+                sum + calculatePercentage(mark.obtainedMarks, mark.totalMarks), 0
+            );
+            return Math.round(totalPercentage / studentMarks.length);
+        }
+
+        function getStudentHighestScore(studentId) {
+            const studentMarks = marks.filter(m => m.studentId === studentId);
+            if (studentMarks.length === 0) return 0;
+            return Math.max(...studentMarks.map(mark => 
+                calculatePercentage(mark.obtainedMarks, mark.totalMarks)
+            ));
+        }
+
+        function calculatePercentage(obtained, total) {
+            return Math.round((obtained / total) * 100);
+        }
+
+        function getLetterGrade(percentage) {
+            if (percentage >= 90) return 'A+';
+            if (percentage >= 80) return 'A';
+            if (percentage >= 70) return 'B+';
+            if (percentage >= 60) return 'B';
+            if (percentage >= 50) return 'C';
+            if (percentage >= 40) return 'D';
+            return 'F';
+        }
+
+        function getGradeColor(obtained, total) {
+            const percentage = calculatePercentage(obtained, total);
+            if (percentage >= 80) return 'text-green-600';
+            if (percentage >= 60) return 'text-blue-600';
+            if (percentage >= 40) return 'text-yellow-600';
+            return 'text-red-600';
+        }
+
+        function getGradeBadgeClass(grade) {
+            if (['A+', 'A'].includes(grade)) return 'badge-success';
+            if (['B+', 'B'].includes(grade)) return 'badge-info';
+            if (grade === 'C') return 'badge-warning';
+            return 'badge-danger';
+        }
+
+        function getActiveCoursesCount() {
+            const courses = [...new Set(students.map(s => s.course))];
+            return courses.length;
+        }
+
+        function getPerformanceLevel(percentage) {
+            if (percentage >= 90) return 'Outstanding';
+            if (percentage >= 80) return 'Excellent';
+            if (percentage >= 70) return 'Good';
+            if (percentage >= 60) return 'Satisfactory';
+            return 'Needs Improvement';
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load existing data or initialize demo data
+            const hasExistingData = loadData();
+            if (!hasExistingData) {
+                initializeDemoData();
+                saveData();
+            }
+            
+            // Auto-login if user was previously logged in
+            if (currentUser) {
+                showMainApp();
+            }
+        });
+
+        // PWA Install Event Listeners
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            setTimeout(showInstallPrompt, 3000);
+            document.getElementById('installButton').style.display = 'block';
         });
 
         window.addEventListener('appinstalled', () => {
-            showSuccess('🎉 Student Hub installed successfully!');
-            isInstalled = true;
-            dismissInstallPrompt();
+            showSuccess('Student Hub installed successfully! 🎉');
+            deferredPrompt = null;
+            document.getElementById('installButton').style.display = 'none';
         });
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            if (!isInstalled) {
-                setTimeout(showInstallPrompt, 5000);
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975ba6fa6201b2b7',t:'MTc1NjI5ODU4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975bea42339bb2b7',t:'MTc1NjMwMTMzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
