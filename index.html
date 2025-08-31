@@ -255,13 +255,112 @@
             color: white; border: none; cursor: pointer;
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px; z-index: 1000;
+            font-size: 24px; z-index: 1001;
             transition: all 0.3s ease;
         }
         
         .floating-btn:hover {
             transform: scale(1.1) translateY(-2px);
             box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+        }
+
+        .floating-btn.active {
+            transform: rotate(45deg);
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+        }
+
+        .fab-menu {
+            position: fixed;
+            bottom: 220px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .fab-menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            animation: fabSlideIn 0.3s ease forwards;
+            opacity: 0;
+            transform: translateX(100px);
+        }
+
+        .fab-menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .fab-menu-item:nth-child(2) { animation-delay: 0.15s; }
+        .fab-menu-item:nth-child(3) { animation-delay: 0.2s; }
+        .fab-menu-item:nth-child(4) { animation-delay: 0.25s; }
+        .fab-menu-item:nth-child(5) { animation-delay: 0.3s; }
+
+        .fab-item-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .fab-item-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .fab-item-student {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+        }
+
+        .fab-item-bulk {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+        }
+
+        .fab-item-attendance {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        .fab-item-grade {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+        }
+
+        .fab-item-approval {
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+        }
+
+        .fab-item-label {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 12px;
+            white-space: nowrap;
+            backdrop-filter: blur(10px);
+        }
+
+        .fab-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            backdrop-filter: blur(2px);
+        }
+
+        @keyframes fabSlideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .install-banner {
@@ -653,9 +752,46 @@
         </div>
 
         <!-- Floating Action Button (Admin Only) -->
-        <button id="fabButton" class="floating-btn" onclick="showFabMenu()" style="display: none;">
-            <i class="fas fa-plus"></i>
+        <button id="fabButton" class="floating-btn" onclick="toggleFabMenu()" style="display: none;">
+            <i class="fas fa-plus" id="fabIcon"></i>
         </button>
+
+        <!-- FAB Menu -->
+        <div id="fabMenu" class="fab-menu" style="display: none;">
+            <div class="fab-menu-item" onclick="openModal('addStudentModal'); closeFabMenu();">
+                <div class="fab-item-btn fab-item-student">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <span class="fab-item-label">Add Student</span>
+            </div>
+            <div class="fab-menu-item" onclick="showBulkActions(); closeFabMenu();">
+                <div class="fab-item-btn fab-item-bulk">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <span class="fab-item-label">Bulk Actions</span>
+            </div>
+            <div class="fab-menu-item" onclick="showQuickAttendance(); closeFabMenu();">
+                <div class="fab-item-btn fab-item-attendance">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <span class="fab-item-label">Quick Attendance</span>
+            </div>
+            <div class="fab-menu-item" onclick="showQuickGrade(); closeFabMenu();">
+                <div class="fab-item-btn fab-item-grade">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <span class="fab-item-label">Quick Grade</span>
+            </div>
+            <div class="fab-menu-item" onclick="showPendingApprovals(); closeFabMenu();">
+                <div class="fab-item-btn fab-item-approval">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <span class="fab-item-label">Approvals</span>
+            </div>
+        </div>
+
+        <!-- FAB Menu Overlay -->
+        <div id="fabOverlay" class="fab-overlay" onclick="closeFabMenu()" style="display: none;"></div>
 
         <!-- Bottom Navigation -->
         <div class="bottom-nav" id="bottomNav">
@@ -1013,6 +1149,266 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Bulk Actions Modal -->
+    <div id="bulkActionsModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Bulk Actions</h2>
+                <button onclick="closeModal('bulkActionsModal')" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Student Selection -->
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Select Students</h3>
+                    <div class="mb-4">
+                        <button onclick="selectAllStudents()" class="btn-info text-sm px-4 py-2 mr-2">
+                            <i class="fas fa-check-square mr-2"></i>Select All
+                        </button>
+                        <button onclick="deselectAllStudents()" class="btn-secondary text-sm px-4 py-2">
+                            <i class="fas fa-square mr-2"></i>Deselect All
+                        </button>
+                    </div>
+                    <div class="max-h-48 overflow-y-auto border rounded-xl p-4 bg-gray-50">
+                        <div id="bulkStudentsList">
+                            ${students.map(student => `
+                                <label class="flex items-center p-2 hover:bg-white rounded-lg cursor-pointer">
+                                    <input type="checkbox" class="bulk-student-checkbox mr-3" value="${student.id}">
+                                    <div>
+                                        <div class="font-semibold text-sm">${student.name}</div>
+                                        <div class="text-xs text-gray-600">${student.id} • ${getCourseName(student.course)}</div>
+                                    </div>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bulk Actions -->
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Choose Action</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="bulkMarkAttendance()" class="btn-success text-sm py-3">
+                            <i class="fas fa-user-check mr-2"></i>Mark Attendance
+                        </button>
+                        <button onclick="bulkChangeStatus()" class="btn-warning text-sm py-3">
+                            <i class="fas fa-user-cog mr-2"></i>Change Status
+                        </button>
+                        <button onclick="bulkSendNotification()" class="btn-info text-sm py-3">
+                            <i class="fas fa-bell mr-2"></i>Send Notification
+                        </button>
+                        <button onclick="bulkExportData()" class="btn-primary text-sm py-3">
+                            <i class="fas fa-download mr-2"></i>Export Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Attendance Modal -->
+    <div id="quickAttendanceModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Quick Attendance</h2>
+                <button onclick="closeModal('quickAttendanceModal')" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form onsubmit="submitQuickAttendance(event)" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Subject *</label>
+                        <select id="quickAttendanceSubject" required class="input-field">
+                            <option value="">Select Subject</option>
+                            ${Object.values(subjects).flat().map(s => `<option value="${s.value}">${s.name}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Date *</label>
+                        <input type="date" id="quickAttendanceDate" required class="input-field" value="${new Date().toISOString().split('T')[0]}">
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Mark Attendance for All Students</h3>
+                    <div class="max-h-64 overflow-y-auto border rounded-xl p-4 bg-gray-50">
+                        <div id="quickAttendanceList">
+                            ${students.filter(s => s.status === 'active').map(student => `
+                                <div class="flex items-center justify-between p-3 bg-white rounded-lg mb-2">
+                                    <div>
+                                        <div class="font-semibold text-sm">${student.name}</div>
+                                        <div class="text-xs text-gray-600">${student.id}</div>
+                                    </div>
+                                    <select class="quick-attendance-status input-field text-sm" data-student-id="${student.id}">
+                                        <option value="present">Present</option>
+                                        <option value="absent">Absent</option>
+                                        <option value="late">Late</option>
+                                    </select>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <button type="button" onclick="closeModal('quickAttendanceModal')" class="btn-secondary">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn-primary" id="submitQuickAttendanceButton">
+                        <i class="fas fa-check mr-2"></i>Submit Attendance
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Quick Grade Modal -->
+    <div id="quickGradeModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Quick Grade Entry</h2>
+                <button onclick="closeModal('quickGradeModal')" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form onsubmit="submitQuickGrade(event)" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Subject *</label>
+                        <select id="quickGradeSubject" required class="input-field">
+                            <option value="">Select Subject</option>
+                            ${Object.values(subjects).flat().map(s => `<option value="${s.value}">${s.name}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Exam Type *</label>
+                        <select id="quickGradeExamType" required class="input-field">
+                            <option value="">Select Exam Type</option>
+                            <option value="internal">Internal Assessment</option>
+                            <option value="midterm">Mid-term Exam</option>
+                            <option value="final">Final Exam</option>
+                            <option value="practical">Practical Exam</option>
+                            <option value="assignment">Assignment</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Date *</label>
+                        <input type="date" id="quickGradeDate" required class="input-field" value="${new Date().toISOString().split('T')[0]}">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Total Marks *</label>
+                        <input type="number" id="quickGradeTotalMarks" required class="input-field" min="1" max="1000" placeholder="e.g., 100">
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Enter Grades for Students</h3>
+                    <div class="max-h-64 overflow-y-auto border rounded-xl p-4 bg-gray-50">
+                        <div id="quickGradeList">
+                            ${students.filter(s => s.status === 'active').map(student => `
+                                <div class="flex items-center justify-between p-3 bg-white rounded-lg mb-2">
+                                    <div>
+                                        <div class="font-semibold text-sm">${student.name}</div>
+                                        <div class="text-xs text-gray-600">${student.id}</div>
+                                    </div>
+                                    <input type="number" class="quick-grade-marks input-field text-sm w-24" 
+                                           data-student-id="${student.id}" min="0" placeholder="Marks">
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <button type="button" onclick="closeModal('quickGradeModal')" class="btn-secondary">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn-primary" id="submitQuickGradeButton">
+                        <i class="fas fa-check mr-2"></i>Submit Grades
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pending Approvals Modal -->
+    <div id="pendingApprovalsModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Pending Approvals</h2>
+                <button onclick="closeModal('pendingApprovalsModal')" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Pending Grades -->
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">📊 Pending Grade Verifications</h3>
+                    <div class="max-h-64 overflow-y-auto">
+                        <div id="pendingGradesList">
+                            ${marks.filter(m => m.selfReported && !m.verified).map(grade => {
+                                const student = students.find(s => s.id === grade.studentId);
+                                const percentage = calculatePercentage(grade.obtainedMarks, grade.totalMarks);
+                                return `
+                                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl mb-3 border border-yellow-200">
+                                        <div class="flex-1">
+                                            <div class="font-semibold text-sm">${student ? student.name : 'Unknown'}</div>
+                                            <div class="text-xs text-gray-600">${getSubjectName(grade.subject)} • ${formatExamType(grade.examType)}</div>
+                                            <div class="text-sm font-bold text-purple-600">${grade.obtainedMarks}/${grade.totalMarks} (${percentage}%)</div>
+                                            <div class="text-xs text-gray-500">Reported on ${formatDate(grade.date)}</div>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <button onclick="approveGrade(${grade.id})" class="btn-success text-xs px-3 py-2">
+                                                <i class="fas fa-check mr-1"></i>Approve
+                                            </button>
+                                            <button onclick="rejectGrade(${grade.id})" class="btn-danger text-xs px-3 py-2">
+                                                <i class="fas fa-times mr-1"></i>Reject
+                                            </button>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('') || '<p class="text-gray-500 text-center py-8">No pending grade verifications</p>'}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Students (if any need approval) -->
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">👥 Student Status Management</h3>
+                    <div class="max-h-64 overflow-y-auto">
+                        <div id="studentApprovalsList">
+                            ${students.filter(s => s.status === 'inactive' || s.status === 'suspended').map(student => `
+                                <div class="flex items-center justify-between p-4 bg-gradient-to-r from-red-50 to-pink-50 rounded-xl mb-3 border border-red-200">
+                                    <div class="flex-1">
+                                        <div class="font-semibold text-sm">${student.name}</div>
+                                        <div class="text-xs text-gray-600">${student.id} • ${getCourseName(student.course)}</div>
+                                        <div class="text-sm">
+                                            <span class="badge ${student.status === 'inactive' ? 'badge-secondary' : 'badge-danger'}">${student.status.toUpperCase()}</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button onclick="approveStudent('${student.id}')" class="btn-success text-xs px-3 py-2">
+                                            <i class="fas fa-user-check mr-1"></i>Activate
+                                        </button>
+                                        <button onclick="viewStudent('${student.id}'); closeModal('pendingApprovalsModal');" class="btn-info text-xs px-3 py-2">
+                                            <i class="fas fa-eye mr-1"></i>View
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('') || '<p class="text-gray-500 text-center py-8">All students are active</p>'}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -4182,8 +4578,532 @@
             }
         }
 
-        function showFabMenu() {
-            showSuccess('FAB menu - Feature coming soon!');
+        // FAB Menu Functions
+        function toggleFabMenu() {
+            const fabMenu = document.getElementById('fabMenu');
+            const fabOverlay = document.getElementById('fabOverlay');
+            const fabButton = document.getElementById('fabButton');
+            const fabIcon = document.getElementById('fabIcon');
+            
+            if (fabMenu.style.display === 'none' || !fabMenu.style.display) {
+                // Show menu
+                fabMenu.style.display = 'flex';
+                fabOverlay.style.display = 'block';
+                fabButton.classList.add('active');
+                fabIcon.style.transform = 'rotate(45deg)';
+            } else {
+                // Hide menu
+                closeFabMenu();
+            }
+        }
+
+        function closeFabMenu() {
+            const fabMenu = document.getElementById('fabMenu');
+            const fabOverlay = document.getElementById('fabOverlay');
+            const fabButton = document.getElementById('fabButton');
+            const fabIcon = document.getElementById('fabIcon');
+            
+            fabMenu.style.display = 'none';
+            fabOverlay.style.display = 'none';
+            fabButton.classList.remove('active');
+            fabIcon.style.transform = 'rotate(0deg)';
+        }
+
+        // Bulk Actions Functions
+        function showBulkActions() {
+            // Refresh student list in modal
+            const bulkStudentsList = document.getElementById('bulkStudentsList');
+            bulkStudentsList.innerHTML = students.map(student => `
+                <label class="flex items-center p-2 hover:bg-white rounded-lg cursor-pointer">
+                    <input type="checkbox" class="bulk-student-checkbox mr-3" value="${student.id}">
+                    <div>
+                        <div class="font-semibold text-sm">${student.name}</div>
+                        <div class="text-xs text-gray-600">${student.id} • ${getCourseName(student.course)}</div>
+                    </div>
+                </label>
+            `).join('');
+            
+            openModal('bulkActionsModal');
+        }
+
+        function selectAllStudents() {
+            const checkboxes = document.querySelectorAll('.bulk-student-checkbox');
+            checkboxes.forEach(checkbox => checkbox.checked = true);
+        }
+
+        function deselectAllStudents() {
+            const checkboxes = document.querySelectorAll('.bulk-student-checkbox');
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+        }
+
+        function getSelectedStudents() {
+            const checkboxes = document.querySelectorAll('.bulk-student-checkbox:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+
+        function bulkMarkAttendance() {
+            const selectedStudents = getSelectedStudents();
+            if (selectedStudents.length === 0) {
+                showError('Please select at least one student');
+                return;
+            }
+            
+            const subject = prompt('Enter subject for attendance:');
+            if (!subject) return;
+            
+            const status = prompt('Enter status (present/absent/late):', 'present');
+            if (!['present', 'absent', 'late'].includes(status)) {
+                showError('Invalid status. Use: present, absent, or late');
+                return;
+            }
+            
+            const date = new Date().toISOString().split('T')[0];
+            let successCount = 0;
+            
+            selectedStudents.forEach(studentId => {
+                // Check if attendance already exists
+                const existingRecord = attendance.find(a => 
+                    a.studentId === studentId && 
+                    a.subject === subject && 
+                    a.date === date
+                );
+                
+                if (!existingRecord) {
+                    const newAttendance = {
+                        id: attendance.length + 1,
+                        studentId,
+                        subject,
+                        date,
+                        status,
+                        markedBy: currentUser.email,
+                        selfMarked: false,
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    attendance.push(newAttendance);
+                    successCount++;
+                }
+            });
+            
+            if (successCount > 0) {
+                saveData();
+                showSuccess(`Attendance marked for ${successCount} students! 📝`);
+                closeModal('bulkActionsModal');
+            } else {
+                showError('No new attendance records created (may already exist)');
+            }
+        }
+
+        function bulkChangeStatus() {
+            const selectedStudents = getSelectedStudents();
+            if (selectedStudents.length === 0) {
+                showError('Please select at least one student');
+                return;
+            }
+            
+            const newStatus = prompt('Enter new status (active/inactive/suspended/graduated):', 'active');
+            if (!['active', 'inactive', 'suspended', 'graduated'].includes(newStatus)) {
+                showError('Invalid status. Use: active, inactive, suspended, or graduated');
+                return;
+            }
+            
+            if (confirm(`Change status to "${newStatus}" for ${selectedStudents.length} selected students?`)) {
+                selectedStudents.forEach(studentId => {
+                    const studentIndex = students.findIndex(s => s.id === studentId);
+                    if (studentIndex > -1) {
+                        students[studentIndex].status = newStatus;
+                        students[studentIndex].updatedAt = new Date().toISOString();
+                    }
+                });
+                
+                saveData();
+                showSuccess(`Status updated for ${selectedStudents.length} students! 👥`);
+                closeModal('bulkActionsModal');
+            }
+        }
+
+        function bulkSendNotification() {
+            const selectedStudents = getSelectedStudents();
+            if (selectedStudents.length === 0) {
+                showError('Please select at least one student');
+                return;
+            }
+            
+            const message = prompt(`Send notification to ${selectedStudents.length} selected students:\n\nEnter your message:`);
+            if (message && message.trim()) {
+                // Simulate sending notifications
+                setTimeout(() => {
+                    showSuccess(`📧 Notification sent to ${selectedStudents.length} students: "${message.trim()}"`);
+                    closeModal('bulkActionsModal');
+                }, 1000);
+            }
+        }
+
+        function bulkExportData() {
+            const selectedStudents = getSelectedStudents();
+            if (selectedStudents.length === 0) {
+                showError('Please select at least one student');
+                return;
+            }
+            
+            try {
+                const exportData = {
+                    students: students.filter(s => selectedStudents.includes(s.id)),
+                    attendance: attendance.filter(a => selectedStudents.includes(a.studentId)),
+                    grades: marks.filter(m => selectedStudents.includes(m.studentId)),
+                    exportDate: new Date().toISOString(),
+                    exportedBy: currentUser.email,
+                    college: 'SREE SIDDRAMESHWARA POLYTECHNIC TIPTUR'
+                };
+                
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(dataBlob);
+                link.download = `bulk_student_data_${selectedStudents.length}_students_${new Date().toISOString().split('T')[0]}.json`;
+                link.click();
+                
+                showSuccess(`Data exported for ${selectedStudents.length} students! 📄`);
+                closeModal('bulkActionsModal');
+            } catch (error) {
+                showError('Export failed. Please try again.');
+            }
+        }
+
+        // Quick Actions Functions
+        function showQuickAttendance() {
+            // Refresh student list in modal
+            const quickAttendanceList = document.getElementById('quickAttendanceList');
+            quickAttendanceList.innerHTML = students.filter(s => s.status === 'active').map(student => `
+                <div class="flex items-center justify-between p-3 bg-white rounded-lg mb-2">
+                    <div>
+                        <div class="font-semibold text-sm">${student.name}</div>
+                        <div class="text-xs text-gray-600">${student.id}</div>
+                    </div>
+                    <select class="quick-attendance-status input-field text-sm" data-student-id="${student.id}">
+                        <option value="present">Present</option>
+                        <option value="absent">Absent</option>
+                        <option value="late">Late</option>
+                    </select>
+                </div>
+            `).join('');
+            
+            openModal('quickAttendanceModal');
+        }
+
+        function submitQuickAttendance(event) {
+            event.preventDefault();
+            
+            const subject = document.getElementById('quickAttendanceSubject').value;
+            const date = document.getElementById('quickAttendanceDate').value;
+            
+            if (!subject || !date) {
+                showError('Please fill all required fields');
+                return;
+            }
+            
+            // Check if it's Sunday
+            const selectedDate = new Date(date);
+            const dayOfWeek = selectedDate.getDay();
+            
+            if (dayOfWeek === 0) {
+                const confirmSunday = confirm('📅 This is a Sunday! Are you sure you want to mark attendance?');
+                if (!confirmSunday) return;
+            }
+            
+            const submitButton = document.getElementById('submitQuickAttendanceButton');
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<div class="loading-spinner mr-2"></div>Submitting...';
+            
+            setTimeout(() => {
+                const statusSelects = document.querySelectorAll('.quick-attendance-status');
+                let successCount = 0;
+                let duplicateCount = 0;
+                
+                statusSelects.forEach(select => {
+                    const studentId = select.dataset.studentId;
+                    const status = select.value;
+                    
+                    // Check if attendance already exists
+                    const existingRecord = attendance.find(a => 
+                        a.studentId === studentId && 
+                        a.subject === subject && 
+                        a.date === date
+                    );
+                    
+                    if (!existingRecord) {
+                        const newAttendance = {
+                            id: attendance.length + 1,
+                            studentId,
+                            subject,
+                            date,
+                            status,
+                            time: new Date().toTimeString().slice(0,5),
+                            markedBy: currentUser.email,
+                            selfMarked: false,
+                            createdAt: new Date().toISOString()
+                        };
+                        
+                        attendance.push(newAttendance);
+                        successCount++;
+                    } else {
+                        duplicateCount++;
+                    }
+                });
+                
+                saveData();
+                
+                let message = `✅ Quick attendance completed! ${successCount} records added.`;
+                if (duplicateCount > 0) {
+                    message += ` ${duplicateCount} duplicates skipped.`;
+                }
+                
+                showSuccess(message);
+                closeModal('quickAttendanceModal');
+                
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fas fa-check mr-2"></i>Submit Attendance';
+            }, 1500);
+        }
+
+        function showQuickGrade() {
+            // Refresh student list in modal
+            const quickGradeList = document.getElementById('quickGradeList');
+            quickGradeList.innerHTML = students.filter(s => s.status === 'active').map(student => `
+                <div class="flex items-center justify-between p-3 bg-white rounded-lg mb-2">
+                    <div>
+                        <div class="font-semibold text-sm">${student.name}</div>
+                        <div class="text-xs text-gray-600">${student.id}</div>
+                    </div>
+                    <input type="number" class="quick-grade-marks input-field text-sm w-24" 
+                           data-student-id="${student.id}" min="0" placeholder="Marks">
+                </div>
+            `).join('');
+            
+            openModal('quickGradeModal');
+        }
+
+        function submitQuickGrade(event) {
+            event.preventDefault();
+            
+            const subject = document.getElementById('quickGradeSubject').value;
+            const examType = document.getElementById('quickGradeExamType').value;
+            const date = document.getElementById('quickGradeDate').value;
+            const totalMarks = parseInt(document.getElementById('quickGradeTotalMarks').value);
+            
+            if (!subject || !examType || !date || !totalMarks) {
+                showError('Please fill all required fields');
+                return;
+            }
+            
+            if (totalMarks <= 0 || totalMarks > 1000) {
+                showError('Total marks must be between 1 and 1000');
+                return;
+            }
+            
+            // Check if date is not in the future
+            const today = new Date();
+            today.setHours(23, 59, 59, 999);
+            const selectedDate = new Date(date);
+            
+            if (selectedDate > today) {
+                showError('Cannot add grades for future dates');
+                return;
+            }
+            
+            const submitButton = document.getElementById('submitQuickGradeButton');
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<div class="loading-spinner mr-2"></div>Submitting...';
+            
+            setTimeout(() => {
+                const marksInputs = document.querySelectorAll('.quick-grade-marks');
+                let successCount = 0;
+                let skipCount = 0;
+                
+                marksInputs.forEach(input => {
+                    const studentId = input.dataset.studentId;
+                    const obtainedMarks = parseInt(input.value);
+                    
+                    // Skip if no marks entered or invalid
+                    if (!input.value || isNaN(obtainedMarks) || obtainedMarks < 0 || obtainedMarks > totalMarks) {
+                        skipCount++;
+                        return;
+                    }
+                    
+                    // Check for duplicate entries
+                    const existingGrade = marks.find(m => 
+                        m.studentId === studentId && 
+                        m.subject === subject && 
+                        m.examType === examType && 
+                        m.date === date
+                    );
+                    
+                    if (!existingGrade) {
+                        const newGrade = {
+                            id: marks.length + 1,
+                            studentId,
+                            subject,
+                            examType,
+                            date,
+                            totalMarks,
+                            obtainedMarks,
+                            addedBy: currentUser.email,
+                            selfReported: false,
+                            verified: true,
+                            createdAt: new Date().toISOString()
+                        };
+                        
+                        marks.push(newGrade);
+                        successCount++;
+                    } else {
+                        skipCount++;
+                    }
+                });
+                
+                saveData();
+                
+                let message = `✅ Quick grade entry completed! ${successCount} grades added.`;
+                if (skipCount > 0) {
+                    message += ` ${skipCount} entries skipped (empty/invalid/duplicate).`;
+                }
+                
+                showSuccess(message);
+                closeModal('quickGradeModal');
+                
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fas fa-check mr-2"></i>Submit Grades';
+            }, 1500);
+        }
+
+        // Approval Functions
+        function showPendingApprovals() {
+            // Refresh pending grades list
+            const pendingGradesList = document.getElementById('pendingGradesList');
+            const pendingGrades = marks.filter(m => m.selfReported && !m.verified);
+            
+            pendingGradesList.innerHTML = pendingGrades.map(grade => {
+                const student = students.find(s => s.id === grade.studentId);
+                const percentage = calculatePercentage(grade.obtainedMarks, grade.totalMarks);
+                return `
+                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl mb-3 border border-yellow-200">
+                        <div class="flex-1">
+                            <div class="font-semibold text-sm">${student ? student.name : 'Unknown'}</div>
+                            <div class="text-xs text-gray-600">${getSubjectName(grade.subject)} • ${formatExamType(grade.examType)}</div>
+                            <div class="text-sm font-bold text-purple-600">${grade.obtainedMarks}/${grade.totalMarks} (${percentage}%)</div>
+                            <div class="text-xs text-gray-500">Reported on ${formatDate(grade.date)}</div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="approveGrade(${grade.id})" class="btn-success text-xs px-3 py-2">
+                                <i class="fas fa-check mr-1"></i>Approve
+                            </button>
+                            <button onclick="rejectGrade(${grade.id})" class="btn-danger text-xs px-3 py-2">
+                                <i class="fas fa-times mr-1"></i>Reject
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('') || '<p class="text-gray-500 text-center py-8">No pending grade verifications</p>';
+            
+            // Refresh student approvals list
+            const studentApprovalsList = document.getElementById('studentApprovalsList');
+            const inactiveStudents = students.filter(s => s.status === 'inactive' || s.status === 'suspended');
+            
+            studentApprovalsList.innerHTML = inactiveStudents.map(student => `
+                <div class="flex items-center justify-between p-4 bg-gradient-to-r from-red-50 to-pink-50 rounded-xl mb-3 border border-red-200">
+                    <div class="flex-1">
+                        <div class="font-semibold text-sm">${student.name}</div>
+                        <div class="text-xs text-gray-600">${student.id} • ${getCourseName(student.course)}</div>
+                        <div class="text-sm">
+                            <span class="badge ${student.status === 'inactive' ? 'badge-secondary' : 'badge-danger'}">${student.status.toUpperCase()}</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="approveStudent('${student.id}')" class="btn-success text-xs px-3 py-2">
+                            <i class="fas fa-user-check mr-1"></i>Activate
+                        </button>
+                        <button onclick="viewStudent('${student.id}'); closeModal('pendingApprovalsModal');" class="btn-info text-xs px-3 py-2">
+                            <i class="fas fa-eye mr-1"></i>View
+                        </button>
+                    </div>
+                </div>
+            `).join('') || '<p class="text-gray-500 text-center py-8">All students are active</p>';
+            
+            openModal('pendingApprovalsModal');
+        }
+
+        function approveGrade(gradeId) {
+            const grade = marks.find(m => m.id === gradeId);
+            if (!grade) {
+                showError('Grade not found');
+                return;
+            }
+            
+            const student = students.find(s => s.id === grade.studentId);
+            const percentage = calculatePercentage(grade.obtainedMarks, grade.totalMarks);
+            
+            if (confirm(`Approve grade for ${student ? student.name : 'Unknown Student'}?\n\n${getSubjectName(grade.subject)} - ${formatExamType(grade.examType)}\n${grade.obtainedMarks}/${grade.totalMarks} (${percentage}%)`)) {
+                const gradeIndex = marks.findIndex(m => m.id === gradeId);
+                if (gradeIndex > -1) {
+                    marks[gradeIndex].verified = true;
+                    marks[gradeIndex].verifiedBy = currentUser.email;
+                    marks[gradeIndex].verifiedAt = new Date().toISOString();
+                    
+                    saveData();
+                    showSuccess(`✅ Grade approved for ${student ? student.name : 'student'}! ${grade.obtainedMarks}/${grade.totalMarks} (${percentage}%)`);
+                    
+                    // Refresh the approvals modal
+                    showPendingApprovals();
+                }
+            }
+        }
+
+        function rejectGrade(gradeId) {
+            const grade = marks.find(m => m.id === gradeId);
+            if (!grade) {
+                showError('Grade not found');
+                return;
+            }
+            
+            const student = students.find(s => s.id === grade.studentId);
+            const reason = prompt(`Reject grade for ${student ? student.name : 'Unknown Student'}?\n\nPlease provide a reason for rejection:`);
+            
+            if (reason && reason.trim()) {
+                const gradeIndex = marks.findIndex(m => m.id === gradeId);
+                if (gradeIndex > -1) {
+                    // Remove the rejected grade
+                    marks.splice(gradeIndex, 1);
+                    
+                    saveData();
+                    showSuccess(`❌ Grade rejected for ${student ? student.name : 'student'}. Reason: ${reason.trim()}`);
+                    
+                    // Refresh the approvals modal
+                    showPendingApprovals();
+                }
+            }
+        }
+
+        function approveStudent(studentId) {
+            const student = students.find(s => s.id === studentId);
+            if (!student) {
+                showError('Student not found');
+                return;
+            }
+            
+            if (confirm(`Activate ${student.name}?\n\nThis will change their status from "${student.status}" to "active".`)) {
+                const studentIndex = students.findIndex(s => s.id === studentId);
+                if (studentIndex > -1) {
+                    students[studentIndex].status = 'active';
+                    students[studentIndex].activatedBy = currentUser.email;
+                    students[studentIndex].activatedAt = new Date().toISOString();
+                    
+                    saveData();
+                    showSuccess(`✅ ${student.name} has been activated successfully!`);
+                    
+                    // Refresh the approvals modal
+                    showPendingApprovals();
+                }
+            }
         }
 
         function exportData() {
@@ -5766,5 +6686,5 @@
             }
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'977ab235a22f425a',t:'MTc1NjYyNDEwMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'977ac18cc07a3e03',t:'MTc1NjYyNDcyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
